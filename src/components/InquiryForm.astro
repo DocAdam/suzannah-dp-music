@@ -1,0 +1,15 @@
+---
+import { studio } from '../data/studio';
+---
+<form id="inquiry-form" class="inquiry-form" action={studio.formEndpoint || undefined} method="POST" novalidate data-endpoint={studio.formEndpoint}>
+  <div class="form-intro"><p class="eyebrow">Lesson inquiry</p><h2>Start with a simple conversation.</h2><p>Share a little about the prospective student. An inquiry does not guarantee placement.</p></div>
+  <div class="form-grid"><label>Parent or student name <input name="name" autocomplete="name" required /></label><label>Email address <input name="email" type="email" autocomplete="email" required /></label><label>Phone number <span class="optional">Optional</span><input name="phone" type="tel" autocomplete="tel" /></label><label>Student age <input name="student_age" inputmode="numeric" required /></label><label>Instrument <select name="instrument" required><option value="">Select one</option><option>Piano</option><option>Violin</option><option>Unsure</option></select></label><label>Experience level <input name="experience_level" required placeholder="For example: beginner" /></label><label class="full">General weekly availability <input name="availability" required /></label><label class="full">Musical goals or additional information <textarea name="goals" rows="4"></textarea></label></div>
+  <div class="honeypot" aria-hidden="true"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <label class="consent"><input name="consent" type="checkbox" required /> I understand that submitting this form does not guarantee lesson placement.</label>
+  <p class="form-error" id="form-error" role="alert" hidden></p><p class="form-success" id="form-success" role="status" hidden></p>
+  <button class="button" type="submit">Send lesson inquiry</button><p class="form-note">Please do not include medical, school, or other sensitive student information.</p>
+</form>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#inquiry-form'); const error = document.querySelector<HTMLParagraphElement>('#form-error'); const success = document.querySelector<HTMLParagraphElement>('#form-success');
+  form?.addEventListener('submit', (event) => { if (!form.checkValidity()) { event.preventDefault(); error!.textContent = 'Please complete the required fields and provide a valid email address.'; error!.hidden = false; success!.hidden = true; form.querySelector<HTMLElement>(':invalid')?.focus(); return; } if ((form.elements.namedItem('website') as HTMLInputElement).value) { event.preventDefault(); return; } if (!form.dataset.endpoint) { event.preventDefault(); error!.textContent = 'The inquiry form is not connected yet. Please use the email link below to contact the studio.'; error!.hidden = false; success!.hidden = true; } });
+</script>

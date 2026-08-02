@@ -1,0 +1,17 @@
+---
+import { studio } from '../data/studio';
+import '../styles/global.css';
+interface Props { title?: string; description?: string }
+const { title = studio.seo.title, description = studio.seo.description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={studio.seo.canonical} />
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" />
+    <meta name="theme-color" content="#244b4b" />
+  </head>
+  <body><a class="skip-link" href="#main">Skip to content</a><slot /></body>
+</html>

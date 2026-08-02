@@ -1,0 +1,4 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import { policySections, policyContent } from '../data/studio';
+---
+<BaseLayout title="Studio Policies | Suzannah Pugh Music Studio"><Header /><main id="main"><section class="page-hero"><div class="shell"><p class="eyebrow">Studio policies</p><h1>Studio policies.</h1><p>These policies help students and families understand how the studio operates.</p></div></section><section class="section"><div class="shell policy-list">{policySections.map((heading) => <article><h2>{heading}</h2><p class={policyContent[heading] ? '' : 'placeholder'}>{policyContent[heading] || `[CONFIRM: ${heading} policy. Add the final studio language here before launch.]`}</p></article>)}</div></section></main><Footer /></BaseLayout>
