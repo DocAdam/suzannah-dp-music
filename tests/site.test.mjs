@@ -1,5 +1,59 @@
-import test from 'node:test'; import assert from 'node:assert/strict'; import { readFile } from 'node:fs/promises';
-test('single-page home protects address privacy and keeps the inquiry path visible', async () => { const html = await readFile('dist/index.html', 'utf8'); assert.match(html, /Piano &amp; Violin Lessons/); assert.match(html, /Ask about an opening/); assert.doesNotMatch(html, /\b\d{1,5}\s+\w+\s+(Street|St|Avenue|Ave|Road|Rd)\b/i); });
-test('single-page site and privacy page render accessible essentials', async () => { for (const file of ['index.html', 'privacy/index.html']) { const html = await readFile(`dist/${file}`, 'utf8'); assert.match(html, /<main id="main"(?:\s|>)/); assert.match(html, /Skip to content/); } });
-test('single-page site makes availability, FAQ, and inquiry prominent', async () => { const html = await readFile('dist/index.html', 'utf8'); assert.match(html, /Choose a time that works for your family/); assert.match(html, /Frequently asked questions/); assert.match(html, /Limited instruction by inquiry/); assert.match(html, /Tuesday/); assert.match(html, /Thursday/); });
-test('inquiry offers current lesson slots and collects follow-up details', async () => { const html = await readFile('dist/index.html', 'utf8'); for (const value of ['Tuesday 9:00 AM', 'Thursday 12:30 PM', 'Parent \/ guardian name', 'Student name', 'name="preferred_times"', 'name="instrument"']) assert.match(html, new RegExp(value)); });
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const readBuiltPage = (file) => readFile(`dist/${file}`, 'utf8');
+
+test('home keeps the lesson decision and address privacy visible', async () => {
+  const html = await readBuiltPage('index.html');
+
+  assert.match(html, /Piano &amp; Violin Lessons/);
+  assert.match(html, /Ask about an opening/);
+  assert.match(html, /Choose a time that works for your family/);
+  assert.doesNotMatch(html, /\b\d{1,5}\s+\w+\s+(Street|St|Avenue|Ave|Road|Rd)\b/i);
+});
+
+test('both public pages include accessible structure and correct canonicals', async () => {
+  const home = await readBuiltPage('index.html');
+  const privacy = await readBuiltPage('privacy/index.html');
+
+  for (const html of [home, privacy]) {
+    assert.match(html, /<main id="main"(?:\s|>)/);
+    assert.match(html, /Skip to content/);
+  }
+  assert.match(home, /<link rel="canonical" href="https:\/\/docadam\.github\.io\/suzannah-dp-music\/">/);
+  assert.match(privacy, /<link rel="canonical" href="https:\/\/docadam\.github\.io\/suzannah-dp-music\/privacy\/">/);
+});
+
+test('inquiry collects only intended details and offers a usable fallback', async () => {
+  const html = await readBuiltPage('index.html');
+
+  for (const value of [
+    'Tuesday 9:00 AM',
+    'Thursday 12:30 PM',
+    'Parent / guardian name',
+    'Student name',
+    'name="preferred_times"',
+    'name="instrument"',
+    'maxlength="2000"',
+    'mailto:suzulose@gmail.com',
+    'Please do not include medical, school, or other sensitive student information.',
+  ]) assert.match(html, new RegExp(value));
+});
+
+test('time options announce a non-color selected state', async () => {
+  const css = await readFile('src/styles/inquiry-form.css', 'utf8');
+
+  assert.match(css, /content:\s*"Selected"/);
+  assert.match(css, /:has\(input:checked\)/);
+});
+
+test('Apps Script validates submissions before writing to the Sheet', async () => {
+  const script = await readFile('apps-script/Code.gs', 'utf8');
+
+  assert.match(script, /LockService\.getScriptLock\(\)/);
+  assert.match(script, /validationError_\(inquiry\)/);
+  assert.match(script, /slice\(0, 3\)/);
+  assert.match(script, /Invalid email address/);
+  assert.match(script, /Unable to save inquiry/);
+});

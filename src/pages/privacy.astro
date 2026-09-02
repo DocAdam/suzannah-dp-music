@@ -1,4 +1,33 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import { studio } from '../data/studio';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { studio } from '../data/studio';
 ---
-<BaseLayout title="Privacy | Suzannah Pugh Music Studio"><Header /><main id="main"><section class="page-hero"><div class="shell"><p class="eyebrow">Privacy</p><h1>How lesson inquiry information is used.</h1><p class="placeholder">[OWNER REVIEW REQUIRED: This starter notice is not legal advice and must be reviewed before launch.]</p></div></section><section class="section"><div class="shell prose narrow"><h2>Information collected</h2><p>The lesson inquiry form collects a parent or guardian name, email address, phone number, student name and grade, instrument, experience level, preferred lesson times, and optional goals or comments.</p><h2>Why it is collected</h2><p>This information is used to respond to lesson inquiries, discuss availability, and determine whether lesson placement may be appropriate. Please do not submit sensitive student records, medical information, or school records.</p><h2>How information is delivered</h2><p>The inquiry form sends submitted information to a Google Apps Script web app, which records it in the studio’s Google Sheet for follow-up.</p><h2>Sharing and deletion</h2><p>The studio does not sell inquiry information. Google processes form-submission data according to its own terms and privacy practices. To request deletion of an inquiry, contact {studio.contactEmail}.</p><p class="placeholder">[CONFIRM: Retention period and reviewed privacy language.]</p></div></section></main><Footer /></BaseLayout>
+
+<BaseLayout title={`Privacy | ${studio.name}`} canonical={`${studio.seo.canonical}privacy/`}>
+  <Header />
+  <main id="main" class="privacy-main">
+    <section class="privacy-hero">
+      <div class="site-wrap">
+        <p class="eyebrow">Privacy</p>
+        <h1>How lesson inquiry information is used.</h1>
+        <p class="owner-review">[OWNER REVIEW REQUIRED: This starter notice is not legal advice and must be reviewed before launch.]</p>
+      </div>
+    </section>
+    <section class="site-section">
+      <div class="site-wrap privacy-content">
+        <h2>Information collected</h2>
+        <p>The lesson inquiry form collects a parent or guardian name, email address, phone number, student name and grade, instrument, experience level, preferred lesson times, and optional goals or comments.</p>
+        <h2>Why it is collected</h2>
+        <p>This information is used to respond to lesson inquiries, discuss availability, and determine whether lesson placement may be appropriate. Please do not submit sensitive student records, medical information, or school records.</p>
+        <h2>How information is delivered</h2>
+        <p>When the inquiry form is available, it sends submitted information to a Google Apps Script web app, which records it in the studio’s Google Sheet for follow-up.</p>
+        <h2>Sharing and deletion</h2>
+        <p>The studio does not sell inquiry information. Google processes form-submission data according to its own terms and privacy practices. To request deletion of an inquiry, email <a href={`mailto:${studio.contactEmail}`}>{studio.contactEmail}</a>.</p>
+        <p class="owner-review">[CONFIRM: Retention period and reviewed privacy language.]</p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

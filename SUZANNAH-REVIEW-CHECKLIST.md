@@ -69,9 +69,9 @@ Use this checklist to confirm every public-facing statement before launch. The w
 ## FAQ and inquiry intake
 
 - [ ] FAQ answers accurately represent ages, beginner enrollment, instruments, online lessons, recitals, practice, cancellations, auditions, and competitions
-- [ ] Inquiry form asks only for: parent/guardian name, email, phone, student name, grade, instrument, experience level, up to three time options, goals/notes, and consent
+- [ ] Inquiry form asks only for: parent/guardian name, email, phone, student name, grade, instrument, experience level, up to three time options, and optional goals/notes
 - [ ] Inquiry privacy warning remains: do not send medical, school, or other sensitive information
 - [ ] Google Sheet `Inquiries` tab headers and follow-up status options are correct
-- [ ] Google Sheet `Availability` tab matches the published website slots
+- [ ] Published `availabilitySlots` in `src/data/studio.ts` match the current openings; the Google Sheet `Availability` tab is updated as an internal reference if it is used
 - [ ] Google Apps Script is deployed as a web app and its URL is set in `PUBLIC_INQUIRY_ENDPOINT`
 - [ ] A test inquiry appears correctly in the Google Sheet before publishing the form

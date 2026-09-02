@@ -9,7 +9,7 @@ The live review site is published through GitHub Pages at <https://docadam.githu
 - `/` is the public single-page studio site: lessons, openings, FAQ, inquiry form, and About.
 - `/privacy` is the only separate public page.
 - `src/data/studio.ts` is the editable source for public studio facts, availability slots, FAQ content, and the intake endpoint setting.
-- `apps-script/Code.gs` receives form submissions and adds them to the studio’s Google Sheet.
+- `apps-script/Code.gs` validates form submissions and adds them to the studio’s Google Sheet.
 - `SUZANNAH-REVIEW-CHECKLIST.md` is the owner’s factual and operational review list.
 
 ## Local development
@@ -40,9 +40,10 @@ The inquiry form collects only parent/guardian contact details, student details,
 
 1. Open `apps-script/Code.gs` in the Google Sheet’s Apps Script project and deploy it as a web app, as described in `apps-script/README.md`.
 2. Set the web-app URL as the GitHub repository Actions variable `PUBLIC_INQUIRY_ENDPOINT` (Settings → Secrets and variables → Actions → Variables). For local testing, copy `.env.example` to `.env` and set the same value there.
-3. Submit a non-sensitive test inquiry and confirm it appears in the Google Sheet’s `Inquiries` tab.
+3. Verify the configured value with `npm run verify:intake-config`, then redeploy the Apps Script whenever `Code.gs` changes.
+4. Submit a non-sensitive test inquiry and confirm it appears in the Google Sheet’s `Inquiries` tab.
 
-Do not commit `.env` files or the deployment URL if it should remain private.
+The endpoint URL is necessarily public because a visitor’s browser submits to it. Keep `.env` files out of Git, but do not treat the endpoint URL itself as a secret.
 
 ## Deployment
 

@@ -1,0 +1,19 @@
+---
+import { lessonOfferings } from '../data/studio';
+---
+
+<section id="lessons" class="site-section site-section-muted">
+  <div class="site-wrap">
+    <p class="eyebrow">Instruction</p>
+    <h2>A focused studio offering.</h2>
+    <div class="lesson-grid">
+      {lessonOfferings.map(([instrument, detail], index) => (
+        <article class="lesson-card">
+          <span class="card-number">0{index + 1}</span>
+          <h3>{instrument}</h3>
+          <p>{detail}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

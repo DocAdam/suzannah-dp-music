@@ -1,0 +1,35 @@
+---
+import { availabilitySlots } from '../data/studio';
+
+const days = ['Tuesday', 'Thursday'];
+const availabilityByDay = days.map((day) => ({ day, slots: availabilitySlots.filter((slot) => slot.day === day) }));
+---
+
+<section id="availability" class="site-section">
+  <div class="site-wrap">
+    <div class="availability-card">
+      <div class="availability-intro">
+        <p class="eyebrow">Current openings</p>
+        <h2>Choose a time that works for your family.</h2>
+        <p>Lessons are offered in 30-minute slots. Select up to three possible times in the inquiry form below.</p>
+      </div>
+      {availabilitySlots.length ? (
+        <div class="availability-days">
+          {availabilityByDay.map(({ day, slots }) => (
+            <section class="availability-day">
+              <h3>{day}</h3>
+              <div class="slot-grid">
+                {slots.map((slot) => (
+                  <article class:list={['slot', slot.status]}>
+                    <strong>{slot.time}</strong>
+                    <span>{slot.status === 'open' ? 'Open' : 'Filled'}</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : <p class="site-status">Accepting new students</p>}
+    </div>
+  </div>
+</section>

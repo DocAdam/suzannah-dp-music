@@ -30,6 +30,10 @@ jobs:
       - run: npm run validate
         env:
           PUBLIC_INQUIRY_ENDPOINT: ${{ vars.PUBLIC_INQUIRY_ENDPOINT }}
+      - run: npm run verify:intake-config
+        if: ${{ vars.PUBLIC_INQUIRY_ENDPOINT != '' }}
+        env:
+          PUBLIC_INQUIRY_ENDPOINT: ${{ vars.PUBLIC_INQUIRY_ENDPOINT }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

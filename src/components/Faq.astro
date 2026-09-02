@@ -1,0 +1,16 @@
+---
+import { faqs } from '../data/studio';
+---
+
+<section id="faq" class="site-section">
+  <div class="site-wrap faq-wrap">
+    <p class="eyebrow">Frequently asked questions</p>
+    <h2>What families usually want to know.</h2>
+    {faqs.map(([question, answer]) => (
+      <details>
+        <summary>{question}</summary>
+        <p>{answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
