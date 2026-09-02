@@ -27,6 +27,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npm run validate
         env:
           PUBLIC_INQUIRY_ENDPOINT: ${{ vars.PUBLIC_INQUIRY_ENDPOINT }}
