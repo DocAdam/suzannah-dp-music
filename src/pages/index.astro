@@ -1,15 +1,37 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import InquiryForm from '../components/InquiryForm.astro';
-import { studio, experience, lessons, studioInfo, faqs, verifiedBackground } from '../data/studio';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { availabilitySlots, demoLessons, faqs, studio } from '../data/studio';
+import DemoInquiryForm from '../components/DemoInquiryForm.astro';
+import '../styles/demo.css';
+import '../styles/demo-refinements.css';
+
+const availabilityByDay = ['Tuesday', 'Thursday'].map((day) => ({ day, slots: availabilitySlots.filter((slot) => slot.day === day) }));
 const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
-<BaseLayout><Header /><main id="main">
-<section class="hero"><div class="shell hero-grid"><div><p class="eyebrow">Springfield, Missouri</p><h1>Private Piano and Violin Lessons</h1><p class="hero-copy">Individual instruction grounded in professional performance, music education, and orchestral experience since 2004.</p><div class="actions"><a class="button" href="#inquiry">Ask About Lessons</a><a class="text-link" href="#about">Learn About the Studio <span aria-hidden="true">↓</span></a></div></div><figure class="hero-image"><img src={`${base}images/violin-studio-detail.jpg`} width="1800" height="1678" alt="Close view of a violin in a studio setting" /><figcaption>Private instruction in Springfield, Missouri</figcaption></figure></div></section>
-<section id="about" class="section"><div class="shell split"><div><p class="eyebrow">About Suzannah</p><h2>A musician and educator with a steady, individual approach.</h2></div><div class="prose"><p>Suzannah Dolanc Pugh is a music educator, private instructor, and performing violinist. She teaches private piano and violin lessons in Springfield, Missouri.</p><p>Her teaching experience also includes choir classes at Play and Sing His Praises homeschool co-op (PSHP), previous violin teaching at Springfield Lutheran School, and music competition judging or adjudication.</p><ul class="credential-list">{verifiedBackground.map((fact) => <li>{fact}</li>)}</ul><p>Outside the studio, Suzannah is also an avid gardener—another practice shaped by patience, attentive observation, and steady growth.</p><p class="placeholder">[ADD: Teaching philosophy and professional memberships]</p></div></div></section>
-<section class="section tinted"><div class="shell"><p class="eyebrow">Professional experience</p><h2>A career across performance and education.</h2><div class="timeline">{experience.map(([title, detail, dates]) => <article><p class="date">{dates}</p><h3>{title}</h3><p>{detail}</p></article>)}</div></div></section>
-<section id="lessons" class="section"><div class="shell"><p class="eyebrow">Private lessons</p><h2>Two paths, one shared foundation.</h2><div class="lesson-grid">{lessons.map((lesson) => <article class="lesson-card"><div class="instrument-mark" aria-hidden="true">{lesson.instrument === 'Piano' ? 'P' : 'V'}</div><h3>{lesson.instrument}</h3><p>{lesson.lead}</p><dl>{lesson.details.map(([term, definition]) => <><dt>{term}</dt><dd class={definition.startsWith('[') ? 'placeholder' : ''}>{definition}</dd></>)}</dl></article>)}</div></div></section>
-<section class="section dark"><div class="shell approach"><div><p class="eyebrow">Teaching approach</p><h2>Fundamentals that support a lifelong relationship with music.</h2></div><p>Lessons are intended to provide clear instruction, healthy technique, musical understanding, consistent practice habits, and room for student-specific goals. <span class="placeholder">[CONFIRM: Teaching philosophy]</span></p></div></section>
-<section id="studio" class="section"><div class="shell"><p class="eyebrow">Studio information</p><h2>Useful details, clearly shared.</h2><p class="section-lead">The exact home address is never displayed publicly. See the studio policies for payment, cancellation, makeup, communication, and student-safety details.</p><dl class="info-grid">{studioInfo.map(([term, definition]) => <div><dt>{term}</dt><dd class={definition.includes('[') ? 'placeholder' : ''}>{definition}</dd></div>)}</dl></div></section>
-<section class="section tinted"><div class="shell faq-wrap"><p class="eyebrow">Frequently asked questions</p><h2>Before you inquire.</h2>{faqs.map(([question, answer]) => <details><summary>{question}</summary><p class={answer.includes('[') ? 'placeholder' : ''}>{answer}</p></details>)}</div></section>
-<section id="inquiry" class="section"><div class="shell"><InquiryForm /><p class="direct-contact">Prefer email? <a href={`mailto:${studio.contactEmail}`}>{studio.contactEmail}</a></p>{studio.scheduling.enabled && <aside class="scheduling"><h2>Schedule an introductory conversation</h2><p>Use this link only for an introductory call or trial-lesson discussion.</p><a class="button" href={studio.scheduling.url}>Open {studio.scheduling.provider}</a></aside>}</div></section>
-</main><Footer /></BaseLayout>
+<BaseLayout title={studio.seo.title} description="Private piano, violin, and limited voice instruction in Springfield, Missouri.">
+  <header class="demo-header">
+    <div class="demo-wrap demo-header-inner">
+      <a class="demo-wordmark" href={base} aria-label="Suzannah Pugh Music Studio home"><span class="demo-mark" aria-hidden="true">S</span><span>Suzannah Pugh Music Studio</span></a>
+      <nav aria-label="Demo navigation"><a href="#availability">Openings</a><a href="#faq">FAQ</a><a class="demo-button demo-button-small" href="#inquire">Inquire</a></nav>
+    </div>
+  </header>
+  <main id="main" class="demo-main">
+    <section class="demo-hero"><div class="demo-wrap">
+      <div class="demo-hero-top"><div class="demo-hero-copy">
+          <p class="eyebrow">Springfield, Missouri · South Springfield</p>
+          <h1>Piano &amp; Violin Lessons</h1>
+          <p class="demo-lede">Individual lessons for children in grades K–12. Complete beginners are welcome; limited voice instruction is available by inquiry.</p>
+          <div class="demo-actions"><a class="demo-button" href="#inquire">Ask about an opening</a><a class="demo-button demo-button-secondary" href="#availability">See studio details</a></div>
+      </div><figure class="demo-hero-image"><img src={`${base}images/dancin-grannies-placeholder.png`} width="1024" height="1536" alt="Dancin’ Grannies Mature Fitness product cover, used as a temporary image placeholder" /><figcaption>Temporary image placeholder</figcaption></figure></div>
+      <div class="decision-grid" aria-label="At a glance"><article><span>Openings</span><strong>Accepting students</strong><p>Tuesday &amp; Thursday</p></article><article><span>Lesson times</span><strong>30 or 60 minutes</strong><p>During school hours</p></article><article><span>Tuition</span><strong>$30 or $60</strong><p>Per 30 or 60 minutes</p></article><article><span>Location</span><strong>South Springfield</strong><p>Exact address after acceptance</p></article></div>
+      </div>
+    </section>
+
+    <section id="availability" class="demo-section"><div class="demo-wrap"><div class="availability-card"><div class="availability-intro"><p class="eyebrow">Current openings</p><h2>Choose a time that works for your family.</h2><p>Lessons are offered in 30-minute slots. Select up to three possible times in the inquiry form below.</p></div>{availabilitySlots.length ? <div class="availability-days">{availabilityByDay.map(({ day, slots }) => <section class="availability-day"><h3>{day}</h3><div class="slot-grid">{slots.map((slot) => <article class:list={['slot', slot.status]}><strong>{slot.time}</strong><span>{slot.status === 'open' ? 'Open' : 'Filled'}</span></article>)}</div></section>)}</div> : <p class="demo-status">Accepting new students</p>}</div></div></section>
+    <section id="lessons" class="demo-section demo-section-muted"><div class="demo-wrap"><p class="eyebrow">Instruction</p><h2>A focused studio offering.</h2><div class="demo-lesson-grid">{demoLessons.map(([instrument, detail], index) => <article class="demo-card"><span class="card-number">0{index + 1}</span><h3>{instrument}</h3><p>{detail}</p></article>)}</div></div></section>
+    <section id="faq" class="demo-section"><div class="demo-wrap demo-faq"><p class="eyebrow">Frequently asked questions</p><h2>What families usually want to know.</h2>{faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
+    <section id="inquire" class="demo-section demo-inquire"><div class="demo-wrap"><DemoInquiryForm /></div></section>
+    <section id="about" class="demo-section demo-about"><div class="demo-wrap demo-about-grid"><div><p class="eyebrow">About Suzannah</p><h2>Experienced instruction, one student at a time.</h2></div><div><p>Suzannah Dolanc Pugh is a music educator, private instructor, and performing violinist. She has taught private lessons since 1998 and has performed with the Springfield Symphony Orchestra since 2004.</p><p><a href="#faq">Read frequently asked questions →</a></p></div></div></section>
+  </main>
+  <footer class="demo-footer"><div class="demo-wrap"><p><strong>{studio.name}</strong> · <a href={`${base}privacy`}>Privacy</a></p><p>© {new Date().getFullYear()} {studio.name}</p></div></footer>
+</BaseLayout>

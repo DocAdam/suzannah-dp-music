@@ -1,53 +1,57 @@
 # Suzannah Pugh Music Studio
 
-A small, static Astro website for a private piano and violin teacher in Springfield, Missouri. It is designed to be fast, accessible, inexpensive to host, and straightforward to update.
+A concise, static Astro website for Suzannah Pugh’s private piano, violin, and limited voice studio in Springfield, Missouri.
 
-## Architecture
+The live review site is published through GitHub Pages at <https://docadam.github.io/suzannah-dp-music/>.
 
-- **Astro + TypeScript** with static output; no database, accounts, tracking, or client framework.
-- `src/data/studio.ts` is the single editable content source for studio identity, biography, experience, lessons, policies, FAQ content, form endpoint, scheduling, and SEO.
-- `src/pages/` contains the home page, studio policies, and privacy pages.
-- `public/images/placeholders/` documents the images needed before launch. No remote photos are used.
+## Site structure
 
-## Local use
+- `/` is the public single-page studio site: lessons, openings, FAQ, inquiry form, and About.
+- `/privacy` is the only separate public page.
+- `src/data/studio.ts` is the editable source for public studio facts, availability slots, FAQ content, and the intake endpoint setting.
+- `apps-script/Code.gs` receives form submissions and adds them to the studio’s Google Sheet.
+- `SUZANNAH-REVIEW-CHECKLIST.md` is the owner’s factual and operational review list.
 
-Install dependencies with `npm install`, then run `npm run dev`. Open the local URL Astro prints. Run `npm run build` for a production build, or `npm run validate` for type checking, build validation, content-rendering tests, and basic link validation.
+## Local development
 
-## Updating content
+```sh
+npm install
+npm run dev
+```
 
-Edit `src/data/studio.ts`. All incomplete items deliberately use `[CONFIRM: ...]` or `[ADD: ...]` labels so they cannot be mistaken for verified facts. Review `CONTENT-CHECKLIST.md` before replacing those labels.
+Run the complete verification suite before publishing a change:
 
-## Images
+```sh
+npm run validate
+```
 
-Add approved local image files under `public/images/`, then replace the relevant styled placeholder blocks in `src/pages/index.astro`. Use accurate, concise alt text. Do not use externally hosted stock images without approval.
+## Updating availability and content
 
-## Formspree
+Edit `src/data/studio.ts`.
 
-1. Create a Formspree form and review its privacy terms.
-2. Create a local `.env` file from `.env.example`.
-3. Set `PUBLIC_FORM_ENDPOINT` to Formspree’s endpoint.
-4. Restart the development server and submit a non-sensitive test inquiry.
+- Add or edit only verified recurring slots in `availabilitySlots`.
+- Change a slot’s `status` from `open` to `filled` once a student is accepted.
+- Preserve `[CONFIRM: ...]` and `[ADD: ...]` markers until the owner verifies the fact.
+- Review `SUZANNAH-REVIEW-CHECKLIST.md` before replacing or adding public claims.
 
-The current empty endpoint means the form safely shows a clear error rather than sending data anywhere. The honeypot field is included. Do not collect sensitive student information.
+## Inquiry form and Google Sheet
 
-## Introductory scheduling
+The inquiry form collects only parent/guardian contact details, student details, instrument, experience level, preferred times, and optional notes. It intentionally warns families not to submit sensitive information.
 
-In `src/data/studio.ts`, set `scheduling.enabled` to `true`, select `Google Calendar` or `Calendly`, and provide its approved booking URL. Only use it for introductory calls, consultations, or trial-lesson discussions—not recurring lesson slots.
+1. Open `apps-script/Code.gs` in the Google Sheet’s Apps Script project and deploy it as a web app, as described in `apps-script/README.md`.
+2. Set the web-app URL as the GitHub repository Actions variable `PUBLIC_INQUIRY_ENDPOINT` (Settings → Secrets and variables → Actions → Variables). For local testing, copy `.env.example` to `.env` and set the same value there.
+3. Submit a non-sensitive test inquiry and confirm it appears in the Google Sheet’s `Inquiries` tab.
+
+Do not commit `.env` files or the deployment URL if it should remain private.
 
 ## Deployment
 
-### GitHub Pages
+GitHub Pages deploys automatically after every push to `main` through `.github/workflows/deploy-pages.yml`. The workflow runs `npm ci` and `npm run validate`, then publishes `dist/`.
 
-Set the final domain in `astro.config.mjs` and `studio.seo.canonical`. Build with `npm run build`, then publish the `dist/` directory through a standard Astro GitHub Pages workflow. Configure the repository’s Pages source to use that workflow.
+The repository is hosted as a GitHub project site, so the build automatically uses the `/suzannah-dp-music/` path. Internal links and images are base-path-safe in both local and Pages builds.
 
-### Cloudflare Pages
+When a final domain is ready:
 
-Connect the repository in Cloudflare Pages. Set build command to `npm run build` and output directory to `dist`. Add `PUBLIC_FORM_ENDPOINT` in the Pages environment variables if using a form provider. Set the final canonical URL before deploying.
-
-### Custom domain
-
-Add the domain in the selected host, follow its DNS instructions, enable HTTPS, then update `astro.config.mjs` and `studio.seo.canonical` to the exact `https://` address. Verify that all pages redirect consistently to the selected canonical domain.
-
-## Pre-launch review
-
-Review every item in `CONTENT-CHECKLIST.md`, test the connected form and optional scheduling link, verify mobile layout, and run `npm run validate`. The privacy and policy pages are starter templates and require owner review; they are not legal advice.
+1. Configure it in GitHub Pages and DNS.
+2. Update `astro.config.mjs` and `studio.seo.canonical` with the verified canonical `https://` URL.
+3. Confirm all links, images, the form endpoint, and the privacy page work on the final domain.

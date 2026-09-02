@@ -1,3 +1,5 @@
+> Archived original project brief. The current implementation is a single-page lesson-inquiry site at `/`, with `/privacy` retained. See `README.md` for the current GitHub Pages and Google Sheet intake setup.
+
 Build a simple, polished portfolio and lesson-inquiry website for a private music teacher.
 
 PROJECT PURPOSE

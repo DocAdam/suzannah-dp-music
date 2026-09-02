@@ -3,11 +3,8 @@ export const studio = {
   descriptor: 'Private Piano and Violin Lessons in Springfield, Missouri',
   instructor: 'Suzannah Dolanc Pugh',
   contactEmail: 'suzulose@gmail.com',
-  formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT || '',
-  // Set after deploying apps-script/Code.gs as a Google Apps Script web app.
-  intakeEndpoint: import.meta.env.PUBLIC_INQUIRY_ENDPOINT || '', // [CONFIRM: Google Apps Script web-app URL]
-  // Enable after adding Suzannah's Google Calendar appointment-schedule URL.
-  scheduling: { enabled: false, url: '', provider: 'Google Calendar' as 'Google Calendar' | 'Calendly' },
+  // Google Apps Script web-app URL; configure this in the deployment environment.
+  intakeEndpoint: import.meta.env.PUBLIC_INQUIRY_ENDPOINT || '',
   seo: {
     title: 'Suzannah Pugh Music Studio | Piano and Violin Lessons in Springfield, Missouri',
     description: 'Private piano and violin instruction in Springfield, Missouri from an experienced music educator and longtime Springfield Symphony Orchestra violinist.',

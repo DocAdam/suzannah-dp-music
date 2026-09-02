@@ -23,7 +23,6 @@ const availabilityByDay = ['Tuesday', 'Thursday'].map((day) => ({ day, slots: av
     <p id="demo-form-error" class="demo-form-error" role="alert" hidden></p><p id="demo-form-success" class="demo-form-success" role="status" hidden>Thank you — your inquiry has been received. Suzannah will follow up directly.</p>
     <button class="demo-button" type="submit">Send inquiry</button><p class="form-note">Please do not include medical, school, or other sensitive student information.</p>
     <iframe name="inquiry-response" title="Inquiry submission response" hidden></iframe>
-    {!studio.intakeEndpoint && <p class="form-note">The online form is being connected. For now, email <a href={`mailto:${studio.contactEmail}`}>{studio.contactEmail}</a> with these details.</p>}
   </form>
 </div>
 <script>
@@ -40,7 +39,7 @@ const availabilityByDay = ['Tuesday', 'Thursday'].map((day) => ({ day, slots: av
       error!.hidden = false; success!.hidden = true; return;
     }
     if ((form.elements.namedItem('website') as HTMLInputElement).value) { event.preventDefault(); return; }
-    if (!form.dataset.endpoint) { event.preventDefault(); error!.textContent = 'The online form is being connected. Please email the studio for now.'; error!.hidden = false; return; }
+    if (!form.dataset.endpoint) { event.preventDefault(); error!.textContent = 'We could not send your inquiry. Please email the studio instead.'; error!.hidden = false; return; }
     submitting = true; error!.hidden = true; success!.hidden = true;
   });
   response?.addEventListener('load', () => { if (submitting) { submitting = false; success!.hidden = false; form?.reset(); success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } });
