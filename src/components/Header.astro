@@ -1,7 +1,8 @@
 ---
 import { studio } from '../data/studio';
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
 <header class="site-header"><div class="shell header-inner">
-  <a class="wordmark" href="/" aria-label={`${studio.name} home`}><span>Suzannah Pugh</span><small>Music Studio</small></a>
-  <nav aria-label="Primary navigation"><a href="/#about">About</a><a href="/#lessons">Lessons</a><a href="/#studio">Studio information</a><a href="/studio-policies">Policies</a><a class="button small" href="/#inquiry">Ask About Lessons</a></nav>
+  <a class="wordmark" href={base} aria-label={`${studio.name} home`}><span>Suzannah Pugh</span><small>Music Studio</small></a>
+  <nav aria-label="Primary navigation"><a href={`${base}#about`}>About</a><a href={`${base}#lessons`}>Lessons</a><a href={`${base}#studio`}>Studio information</a><a href={`${base}studio-policies`}>Policies</a><a class="button small" href={`${base}#inquiry`}>Ask About Lessons</a></nav>
 </div></header>

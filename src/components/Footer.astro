@@ -1,4 +1,5 @@
 ---
 import { studio } from '../data/studio';
+const base = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/`;
 ---
-<footer><div class="shell footer-grid"><p><strong>{studio.name}</strong><br />{studio.descriptor}</p><nav aria-label="Footer navigation"><a href="/studio-policies">Studio policies</a><a href="/privacy">Privacy</a><a href="/#inquiry">Lesson inquiry</a></nav><p class="muted">© {new Date().getFullYear()} {studio.name}</p></div></footer>
+<footer><div class="shell footer-grid"><p><strong>{studio.name}</strong><br />{studio.descriptor}</p><nav aria-label="Footer navigation"><a href={`${base}studio-policies`}>Studio policies</a><a href={`${base}privacy`}>Privacy</a><a href={`${base}#inquiry`}>Lesson inquiry</a></nav><p class="muted">© {new Date().getFullYear()} {studio.name}</p></div></footer>

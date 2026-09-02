@@ -12,12 +12,13 @@ async function collectHtml(directory) {
 const files = await collectHtml('dist');
 const pages = new Map(await Promise.all(files.map(async (file) => [relative('dist', file), await readFile(file, 'utf8')])));
 const routeExists = (route) => route === '/' || pages.has(`${route.replace(/^\//, '')}/index.html`);
+const base = process.env.GITHUB_ACTIONS ? '/suzannah-dp-music' : '';
 
 for (const [file, html] of pages) {
   if (html.includes('href="undefined"') || html.includes('href=""')) throw new Error(`Invalid empty link in ${file}.`);
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]));
   for (const match of html.matchAll(/href="([^"]+)"/g)) {
-    const href = match[1];
+    const href = match[1].startsWith(`${base}/`) ? match[1].slice(base.length) : match[1];
     if (/^(mailto:|https?:|#|\/_astro\/|\/images\/)/.test(href)) {
       if (href.startsWith('#') && !ids.has(href.slice(1))) throw new Error(`Missing anchor ${href} in ${file}.`);
       continue;

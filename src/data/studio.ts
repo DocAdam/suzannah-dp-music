@@ -4,6 +4,8 @@ export const studio = {
   instructor: 'Suzannah Dolanc Pugh',
   contactEmail: 'suzulose@gmail.com',
   formEndpoint: import.meta.env.PUBLIC_FORM_ENDPOINT || '',
+  // Set after deploying apps-script/Code.gs as a Google Apps Script web app.
+  intakeEndpoint: import.meta.env.PUBLIC_INQUIRY_ENDPOINT || '', // [CONFIRM: Google Apps Script web-app URL]
   // Enable after adding Suzannah's Google Calendar appointment-schedule URL.
   scheduling: { enabled: false, url: '', provider: 'Google Calendar' as 'Google Calendar' | 'Calendly' },
   seo: {
@@ -13,6 +15,23 @@ export const studio = {
   },
   social: [] as { label: string; url: string }[], // [ADD: approved social links]
 };
+
+// Keep the current published availability here. Add only verified recurring times.
+// Change `status` to 'filled' after enrollment; the demo page updates automatically.
+export const availabilitySlots: { day: string; time: string; status: 'open' | 'filled' }[] = [
+  { day: 'Tuesday', time: '9:00 AM', status: 'open' }, { day: 'Tuesday', time: '9:30 AM', status: 'open' },
+  { day: 'Tuesday', time: '10:00 AM', status: 'open' }, { day: 'Tuesday', time: '10:30 AM', status: 'open' },
+  { day: 'Tuesday', time: '11:00 AM', status: 'open' }, { day: 'Tuesday', time: '11:30 AM', status: 'open' },
+  { day: 'Thursday', time: '10:00 AM', status: 'open' }, { day: 'Thursday', time: '10:30 AM', status: 'open' },
+  { day: 'Thursday', time: '11:00 AM', status: 'open' }, { day: 'Thursday', time: '11:30 AM', status: 'open' },
+  { day: 'Thursday', time: '12:00 PM', status: 'open' }, { day: 'Thursday', time: '12:30 PM', status: 'open' },
+];
+
+export const demoLessons = [
+  ['Piano', 'Private 30- or 60-minute lessons for beginning and continuing students in grades K–12.'],
+  ['Violin', 'Private 30- or 60-minute lessons for beginning and continuing students in grades K–12.'],
+  ['Voice', 'Limited instruction by inquiry. Please email to discuss fit and availability.'],
+] as const;
 
 export const experience = [
   ['Dolanc String Quartet', 'Violinist performing for weddings, funerals, and special events.', '1997–Present'],

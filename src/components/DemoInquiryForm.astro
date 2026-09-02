@@ -1,0 +1,47 @@
+---
+import { availabilitySlots, studio } from '../data/studio';
+import '../styles/demo-inquiry.css';
+
+const availabilityByDay = ['Tuesday', 'Thursday'].map((day) => ({ day, slots: availabilitySlots.filter((slot) => slot.day === day) }));
+---
+<div class="demo-form-wrap">
+  <div><p class="eyebrow">Next step</p><h2>Tell us about your student.</h2><p>The form takes about two minutes. Choose up to three times that work; Suzannah will confirm any placement directly.</p></div>
+  <form id="demo-inquiry-form" class="demo-inquiry-form" action={studio.intakeEndpoint || undefined} method="POST" target="inquiry-response" data-endpoint={studio.intakeEndpoint}>
+    <div class="demo-form-grid">
+      <label>Parent / guardian name<input name="parent_name" autocomplete="name" required /></label>
+      <label>Email address<input name="email" type="email" autocomplete="email" required /></label>
+      <label>Phone number<input name="phone" type="tel" autocomplete="tel" required /></label>
+      <label>Student name<input name="student_name" required /></label>
+      <label>Student grade<select name="student_grade" required><option value="">Select grade</option><option>Pre-K</option><option>Kindergarten</option>{Array.from({ length: 12 }, (_, index) => <option>Grade {index + 1}</option>)}</select></label>
+      <label>Instrument<select name="instrument" required><option value="">Select an instrument</option><option>Piano</option><option>Violin</option><option>Voice — limited availability</option></select></label>
+      <label class="full">Experience level<select name="experience_level" required><option value="">Select one</option><option>Complete beginner</option><option>Some prior lessons</option><option>Continuing student</option></select></label>
+    </div>
+    <fieldset><legend>Which times could work? <span>Choose up to three.</span></legend><div class="time-days">{availabilityByDay.map(({ day, slots }) => <section class="time-day"><h3>{day}</h3><div class="time-options">{slots.map((slot) => <label class:list={['time-option', slot.status]}><input type="checkbox" name="preferred_times" value={`${slot.day} ${slot.time}`} disabled={slot.status === 'filled'} /> <span><strong>{slot.time}</strong><em>{slot.status === 'open' ? 'Open' : 'Filled'}</em></span></label>)}</div></section>)}</div></fieldset>
+    <label>Goals or anything helpful to know <span>Optional</span><textarea name="goals_notes" rows="4" placeholder="For example: beginner goals, prior music experience, or questions for Suzannah."></textarea></label>
+    <p class="demo-submission-note">Submitting an inquiry does not guarantee lesson placement.</p>
+    <input class="demo-honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <p id="demo-form-error" class="demo-form-error" role="alert" hidden></p><p id="demo-form-success" class="demo-form-success" role="status" hidden>Thank you — your inquiry has been received. Suzannah will follow up directly.</p>
+    <button class="demo-button" type="submit">Send inquiry</button><p class="form-note">Please do not include medical, school, or other sensitive student information.</p>
+    <iframe name="inquiry-response" title="Inquiry submission response" hidden></iframe>
+    {!studio.intakeEndpoint && <p class="form-note">The online form is being connected. For now, email <a href={`mailto:${studio.contactEmail}`}>{studio.contactEmail}</a> with these details.</p>}
+  </form>
+</div>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#demo-inquiry-form');
+  const error = document.querySelector<HTMLParagraphElement>('#demo-form-error');
+  const success = document.querySelector<HTMLParagraphElement>('#demo-form-success');
+  const response = document.querySelector<HTMLIFrameElement>('iframe[name="inquiry-response"]');
+  let submitting = false;
+  form?.addEventListener('submit', (event) => {
+    const selected = form.querySelectorAll<HTMLInputElement>('input[name="preferred_times"]:checked');
+    if (!form.checkValidity() || !selected.length || selected.length > 3) {
+      event.preventDefault();
+      error!.textContent = !selected.length ? 'Please choose at least one time that could work.' : selected.length > 3 ? 'Please choose no more than three times.' : 'Please complete the required fields.';
+      error!.hidden = false; success!.hidden = true; return;
+    }
+    if ((form.elements.namedItem('website') as HTMLInputElement).value) { event.preventDefault(); return; }
+    if (!form.dataset.endpoint) { event.preventDefault(); error!.textContent = 'The online form is being connected. Please email the studio for now.'; error!.hidden = false; return; }
+    submitting = true; error!.hidden = true; success!.hidden = true;
+  });
+  response?.addEventListener('load', () => { if (submitting) { submitting = false; success!.hidden = false; form?.reset(); success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } });
+</script>
