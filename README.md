@@ -1,4 +1,4 @@
-# Suzannah Pugh Music Studio
+# Suzannah Dolanc Pugh Music Studio
 
 A concise, static Astro website for Suzannah Pugh’s private piano, violin, and limited voice studio in Springfield, Missouri.
 

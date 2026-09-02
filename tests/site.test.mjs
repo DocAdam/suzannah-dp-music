@@ -10,6 +10,9 @@ test('home keeps the lesson decision and address privacy visible', async () => {
   assert.match(html, /Piano &amp; Violin Lessons/);
   assert.match(html, /Ask about an opening/);
   assert.match(html, /Choose a time that works for your family/);
+  assert.match(html, /\$25 or \$50/);
+  assert.match(html, /auditions or festivals/);
+  assert.doesNotMatch(html, /Do you teach adults|Adults who may be a good fit/);
   assert.doesNotMatch(html, /\b\d{1,5}\s+\w+\s+(Street|St|Avenue|Ave|Road|Rd)\b/i);
 });
 

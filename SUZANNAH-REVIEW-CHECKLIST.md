@@ -1,16 +1,16 @@
-# Suzannah Pugh Music Studio — Content Review Checklist
+# Suzannah Dolanc Pugh Music Studio — Content Review Checklist
 
 Use this checklist to confirm every public-facing statement before launch. The website source is `src/data/studio.ts`; keep its `[CONFIRM: ...]` and `[ADD: ...]` markers until each item is verified.
 
 ## Studio identity and contact
 
-- [ ] Studio name: Suzannah Pugh Music Studio
+- [ ] Studio name: Suzannah Dolanc Pugh Music Studio
 - [ ] Instructor name: Suzannah Dolanc Pugh
 - [ ] Public descriptor: Private Piano and Violin Lessons in Springfield, Missouri
 - [ ] Public email: suzulose@gmail.com
 - [ ] South Springfield / Southern Hills neighborhood wording is accurate
 - [ ] Exact home address remains private until acceptance
-- [ ] Canonical website URL is supplied (currently `[CONFIRM: production canonical URL]`)
+- [ ] Canonical website URL is supplied (currently the GitHub Pages review URL; replace it when the final domain is connected)
 - [ ] Approved social links are added or intentionally omitted
 
 ## Current availability and enrollment
@@ -28,12 +28,11 @@ Use this checklist to confirm every public-facing statement before launch. The w
 - [ ] Piano lessons: grades K–12, beginners and continuing students
 - [ ] Violin lessons: grades K–12, beginners and continuing students
 - [ ] Lesson lengths: 30 or 60 minutes
-- [ ] Tuition: $30 for 30 minutes; $60 for 60 minutes
+- [ ] Tuition: $25 for 30 minutes; $50 for 60 minutes
 - [ ] Instruction includes technique, music reading, rhythm, theory, repertoire, practice habits, and performance preparation
 - [ ] Families purchase teacher-recommended materials
-- [ ] Optional recitals, audition preparation, and competition preparation are offered as stated
+- [ ] Optional recitals, audition preparation, and festival preparation are offered as stated
 - [ ] Students need access to their own instrument before beginning
-- [ ] Adult inquiry wording is correct
 - [ ] In-person / practical online lesson wording for illness and unsafe weather is correct
 
 ## Policies and family expectations
@@ -46,8 +45,6 @@ Use this checklist to confirm every public-facing statement before launch. The w
 - [ ] Teacher cancellations mean no lesson and no payment due
 - [ ] Lessons still end at the scheduled time after a late arrival
 - [ ] Practice expectations and individualized goals wording is accurate
-- [ ] Parent/guardian reachability and on-site-presence policy is accurate
-- [ ] Photography/recording opt-out policy is accurate
 - [ ] Communication and ending-lessons wording is accurate
 
 ## Background and credentials
@@ -62,13 +59,10 @@ Use this checklist to confirm every public-facing statement before launch. The w
 - [ ] Music competition/adjudication names and dates are confirmed
 - [ ] Bachelor of Music Education, Missouri State University, 2005; vocal and instrumental emphasis
 - [ ] Master of Music, Missouri State University, 2008
-- [ ] Graduate thesis title is accurate
-- [ ] Published lyricist credit for “What Then, Will God Do with Me?” is accurate
-- [ ] Teaching philosophy and professional memberships are supplied or intentionally omitted
 
 ## FAQ and inquiry intake
 
-- [ ] FAQ answers accurately represent ages, beginner enrollment, instruments, online lessons, recitals, practice, cancellations, auditions, and competitions
+- [ ] FAQ answers accurately represent ages, beginner enrollment, instruments, online lessons, recitals, practice, cancellations, auditions, and festivals
 - [ ] Inquiry form asks only for: parent/guardian name, email, phone, student name, grade, instrument, experience level, up to three time options, and optional goals/notes
 - [ ] Inquiry privacy warning remains: do not send medical, school, or other sensitive information
 - [ ] Google Sheet `Inquiries` tab headers and follow-up status options are correct
