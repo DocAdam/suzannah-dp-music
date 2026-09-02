@@ -28,6 +28,18 @@ test('both public pages include accessible structure and correct canonicals', as
   assert.match(privacy, /<link rel="canonical" href="https:\/\/suzmusic\.com\/privacy\/">/);
 });
 
+test('header provides a full, compact navigation menu on mobile', async () => {
+  const html = await readBuiltPage('index.html');
+  const css = await readFile('src/styles/site.css', 'utf8');
+
+  assert.match(html, /<details class="site-nav-mobile">/);
+  assert.match(html, /<summary aria-label="Open navigation menu">Menu<\/summary>/);
+  assert.match(html, /<nav aria-label="Mobile navigation">[\s\S]*Openings[\s\S]*FAQ[\s\S]*Privacy[\s\S]*Inquire[\s\S]*<\/nav>/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.site-nav-desktop \{ display: none; \}/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*\.site-nav-mobile \{ display: block;/);
+  assert.doesNotMatch(css, /\.site-nav a:not\(\.site-button\) \{ display: none; \}/);
+});
+
 test('inquiry collects only intended details and offers a usable fallback', async () => {
   const html = await readBuiltPage('index.html');
 
