@@ -109,7 +109,6 @@
 .privacy-content { max-width: 760px; }
 .privacy-content h2 { margin-top: 34px; font-size: 1.25rem; }
 .privacy-content p { color: var(--muted); }
-.owner-review { color: #7c4939 !important; font-style: italic; }
 
 @media (max-width: 900px) {
   .site-hero-layout { grid-template-columns: minmax(0, 1fr) 245px; gap: 34px; }

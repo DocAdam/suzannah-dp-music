@@ -24,8 +24,8 @@ test('both public pages include accessible structure and correct canonicals', as
     assert.match(html, /<main id="main"(?:\s|>)/);
     assert.match(html, /Skip to content/);
   }
-  assert.match(home, /<link rel="canonical" href="https:\/\/docadam\.github\.io\/suzannah-dp-music\/">/);
-  assert.match(privacy, /<link rel="canonical" href="https:\/\/docadam\.github\.io\/suzannah-dp-music\/privacy\/">/);
+  assert.match(home, /<link rel="canonical" href="https:\/\/suzmusic\.com\/">/);
+  assert.match(privacy, /<link rel="canonical" href="https:\/\/suzmusic\.com\/privacy\/">/);
 });
 
 test('inquiry collects only intended details and offers a usable fallback', async () => {

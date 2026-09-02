@@ -8,7 +8,7 @@ export const studio = {
   seo: {
     title: 'Suzannah Dolanc Pugh Music Studio | Piano and Violin Lessons in Springfield, Missouri',
     description: 'Private piano and violin instruction in Springfield, Missouri from an experienced music educator and longtime Springfield Symphony Orchestra violinist.',
-    canonical: 'https://docadam.github.io/suzannah-dp-music/', // [CONFIRM: replace when the final domain is connected]
+    canonical: 'https://suzmusic.com/',
   },
 };
 
