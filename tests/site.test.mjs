@@ -50,13 +50,3 @@ test('time options announce a non-color selected state', async () => {
   assert.match(css, /content:\s*"Selected"/);
   assert.match(css, /:has\(input:checked\)/);
 });
-
-test('Apps Script validates submissions before writing to the Sheet', async () => {
-  const script = await readFile('apps-script/Code.gs', 'utf8');
-
-  assert.match(script, /LockService\.getScriptLock\(\)/);
-  assert.match(script, /validationError_\(inquiry\)/);
-  assert.match(script, /slice\(0, 3\)/);
-  assert.match(script, /Invalid email address/);
-  assert.match(script, /Unable to save inquiry/);
-});

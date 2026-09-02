@@ -9,10 +9,9 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --test tests/*.test.mjs",
-    "validate:apps-script": "node --check < apps-script/Code.gs",
     "verify:intake-config": "node scripts/verify-intake-config.mjs",
     "validate:links": "node scripts/validate-links.mjs",
-    "validate": "npm run check && npm run validate:apps-script && npm run build && npm run test && npm run validate:links"
+    "validate": "npm run check && npm run build && npm run test && npm run validate:links"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",

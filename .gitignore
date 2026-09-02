@@ -8,3 +8,11 @@ dist/
 *.log
 npm-debug.log*
 coverage/
+
+# Private studio operations and working notes. These stay local and are not part
+# of the public site or its GitHub Pages deployment.
+AGENTS.md
+RESEARCH-NOTES.md
+SUZANNAH-REVIEW-CHECKLIST.md
+.env.example
+apps-script/
