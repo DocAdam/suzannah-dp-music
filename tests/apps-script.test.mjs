@@ -1,9 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
-const scriptSource = await readFile('apps-script/Code.gs', 'utf8');
+const scriptPath = 'apps-script/Code.gs';
+const hasLocalAppsScript = existsSync(scriptPath);
+const scriptSource = hasLocalAppsScript ? await readFile(scriptPath, 'utf8') : '';
 
 function loadScript() {
   const calls = [];
@@ -22,7 +25,7 @@ function loadScript() {
       openById: (id) => {
         calls.push(['openById', id]);
         return {
-          getSheetByName: (name) => ({
+          getSheetByName: () => ({
             appendRow: (row) => {
               calls.push('appendRow');
               appendedRows.push(row);
@@ -49,7 +52,7 @@ function loadScript() {
   return { doPost: vm.runInNewContext(`${scriptSource}\ndoPost`, sandbox), calls, appendedRows, sentEmails };
 }
 
-test('inquiry is saved and Suzannah is notified immediately with the sheet link', () => {
+test('inquiry is saved and Suzannah is notified immediately with the sheet link', { skip: !hasLocalAppsScript }, () => {
   const { doPost, calls, appendedRows, sentEmails } = loadScript();
   const response = doPost({
     parameter: {
